@@ -1,0 +1,30 @@
+﻿Projekt je rozdělený do 4 hlavních částí:
+GameController.cs - Ovládá většinu hráčského inputu a vyhodnocování pokusů. Také ovládá aktuální pokus
+GameBoard.cs - Ukládá historii pokusů, a manipuluje s ní
+MainWindow.xaml.cs - Ovládá vykreslování dat, a vytváří některé elementy herní plochy
+MainWindow.xaml - Vykresluje základní strukturu hry, a některé tlačítka
+
+Hlavní funkce programu:
+Nejdříve vykreslí MainWindows.xaml.cs zbytek elementů, které nejsou deklarované v MainWindows.xaml. Poté se vygeneruje náhodná sekvence 4 barev,
+kterou musí hráč uhodnout. Barvy se mohou v sekvenci opakovat. Pomocí tlačítek může hráč po jednom přepínat jednotlivé barvy svého pokusu. Když pokus odešle,
+vyhodnotí se správnost, a pokus, i hodnocení se uloží do 2 jednotivých 2D polí v GameBoard.cs. Y index polí indikuje pořadí pokusu, X index jednotlivé pozice barev
+a hodnocení. Barvy i hodnocení jsou uloženy v enumeracích Color a Ratingm které se později v kódu převedou na odpovídající barvy. Zda má hra končit, nebo pokračovat se vyhodnocuje po aktualizaci herní plochy.
+Po ukončení hry může hráč kliknout na tlačítko s výsledkem, a hra se vrátí do své původní pozice, kde může hráč hrát znovu.
+
+
+Důležité metody:
+MainWindows.xaml.cs.: 
+void BuildBoard() - Zavolá 3 metody, které vytvoří potřébné elementy pro chod hry.
+void ChangeColor(Object, RoutedEventArgs) - Podle pořadí tlačítka v gridu vyhodnotí jaké tlačítko bylo vybráno a změní jeho barvu.
+void UpdateGuessHistory() - Aktualizuje herní plochu.
+void EndGame(bool) - Podle boolu vyhodnotí hru, a zakáže uživateli měnit a odesílat pokus. 
+void NewTry(object, RoutedEventArgs) - Vrátí hru do původního stavu a začne novou hru.
+
+GameBoard.cs:
+void ClearBoard() - Resetuje historii pokusů
+void UpdateRow() - Přidá poslední pokus do historie
+
+GameController.cs:
+void GenerateAnswer() - Generuje správnou odpověď
+void Rate() - Vyhodnotí pokus, a zavolá metodu pro uložení do historie
+
